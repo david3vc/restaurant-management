@@ -6,6 +6,7 @@ import com.iroman.restaurantmanagement.application.dto.category.CategorySmallDto
 import com.iroman.restaurantmanagement.persistence.entity.Category;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingConstants;
+import org.mapstruct.MappingTarget;
 
 // MapStruct annotations
 @Mapper(componentModel = MappingConstants.ComponentModel.SPRING)
@@ -13,4 +14,5 @@ public interface CategoryMapper {
     CategoryDto toDto(Category category);
     CategorySmallDto toSmallDto(Category category);
     Category toEntity(CategoryBodyDto categoryBodyDto);
+    Category updateEntity(@MappingTarget Category category, CategoryBodyDto categoryBody);
 }
