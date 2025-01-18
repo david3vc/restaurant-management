@@ -2,6 +2,7 @@ package com.iroman.restaurantmanagement.application.service.impl;
 
 import com.iroman.restaurantmanagement.application.dto.category.CategoryBodyDto;
 import com.iroman.restaurantmanagement.application.dto.category.CategoryDto;
+import com.iroman.restaurantmanagement.application.dto.category.CategorySavedDto;
 import com.iroman.restaurantmanagement.application.dto.category.CategorySmallDto;
 import com.iroman.restaurantmanagement.application.mapper.CategoryMapper;
 import com.iroman.restaurantmanagement.application.service.CategoryService;
@@ -38,29 +39,29 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public CategoryDto create(CategoryBodyDto categoryBody) {
+    public CategorySavedDto create(CategoryBodyDto categoryBody) {
         Category category = categoryMapper.toEntity(categoryBody);
         category.setState("A");
         category.setCreatedAt(LocalDateTime.now());
 
-        return categoryMapper.toDto(categoryRepository.save(category));
+        return categoryMapper.toSavedSto(categoryRepository.save(category));
     }
 
     @Override
-    public CategoryDto update(Long id, CategoryBodyDto categoryBody) {
+    public CategorySavedDto update(Long id, CategoryBodyDto categoryBody) {
         Category category = categoryRepository.findById(id).get();
         categoryMapper.updateEntity(category, categoryBody);
         category.setUpdatedAt(LocalDateTime.now());
 
-        return categoryMapper.toDto(categoryRepository.save(category));
+        return categoryMapper.toSavedSto(categoryRepository.save(category));
     }
 
     @Override
-    public CategoryDto disable(Long id) {
+    public CategorySavedDto disable(Long id) {
         Category category = categoryRepository.findById(id).get();
         category.setState("E");
         // category.setUpdatedAt(LocalDateTime.now());
 
-        return categoryMapper.toDto(categoryRepository.save(category));
+        return categoryMapper.toSavedSto(categoryRepository.save(category));
     }
 }
